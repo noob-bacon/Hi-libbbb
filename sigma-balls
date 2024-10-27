@@ -68,6 +68,30 @@ Tab:AddToggle({
   end
 })
 
+local Tab = Window:MakeTab({
+	Name = "Tp",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+--[[
+Name = <string> - The name of the tab.
+Icon = <string> - The icon of the tab.
+PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
+]]
+
+Tab:AddButton({
+	Name = "Safe Place",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-229.373001, 898.024292, 152.703629)
+  	end    
+})
+
+--[[
+Name = <string> - The name of the button.
+Callback = <function> - The function of the button.
+]]
+
 game.Workspace.Zombies.DescendantAdded:Connect(function(z)
   local head = z:FindFirstChild("Head")
   if z:IsA("Model") and head and not broshead[z] then
