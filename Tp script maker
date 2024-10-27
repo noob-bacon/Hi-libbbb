@@ -5,8 +5,8 @@ screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 -- Create the Frame
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0.3, 0, 0.4, 0)
-frame.Position = UDim2.new(0.35, 0, 0.3, 0)
+frame.Size = UDim2.new(0.4, 0, 0.5, 0)
+frame.Position = UDim2.new(0.3, 0, 0.25, 0)
 frame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 frame.Parent = screenGui
 
@@ -22,7 +22,7 @@ label.Parent = frame
 
 -- Create the Text Box to display the script
 local textBox = Instance.new("TextBox")
-textBox.Size = UDim2.new(1, 0, 0.5, 0)
+textBox.Size = UDim2.new(1, 0, 0.4, 0)
 textBox.Position = UDim2.new(0, 0, 0.2, 0)
 textBox.BackgroundColor3 = Color3.new(1, 1, 1)
 textBox.Text = ""
@@ -32,21 +32,31 @@ textBox.TextWrapped = true
 textBox.MultiLine = true
 textBox.Parent = frame
 
--- Create the Generate Button
+-- Create the Generate Button for instant teleport
 local generateButton = Instance.new("TextButton")
 generateButton.Size = UDim2.new(1, 0, 0.1, 0)
-generateButton.Position = UDim2.new(0, 0, 0.72, 0)
+generateButton.Position = UDim2.new(0, 0, 0.63, 0)
 generateButton.BackgroundColor3 = Color3.new(0.2, 0.6, 0.2)
 generateButton.Text = "Generate TP Script"
 generateButton.TextColor3 = Color3.new(1, 1, 1)
 generateButton.TextScaled = true
 generateButton.Parent = frame
 
+-- Create the Generate Button for tween teleport
+local tweenButton = Instance.new("TextButton")
+tweenButton.Size = UDim2.new(1, 0, 0.1, 0)
+tweenButton.Position = UDim2.new(0, 0, 0.73, 0)
+tweenButton.BackgroundColor3 = Color3.new(0.2, 0.4, 0.8)
+tweenButton.Text = "Generate Tween TP Script"
+tweenButton.TextColor3 = Color3.new(1, 1, 1)
+tweenButton.TextScaled = true
+tweenButton.Parent = frame
+
 -- Create the Copy Button
 local copyButton = Instance.new("TextButton")
 copyButton.Size = UDim2.new(1, 0, 0.1, 0)
 copyButton.Position = UDim2.new(0, 0, 0.83, 0)
-copyButton.BackgroundColor3 = Color3.new(0.2, 0.4, 0.8)
+copyButton.BackgroundColor3 = Color3.new(0.8, 0.4, 0.2)
 copyButton.Text = "Copy to Clipboard"
 copyButton.TextColor3 = Color3.new(1, 1, 1)
 copyButton.TextScaled = true
@@ -64,6 +74,30 @@ generateButton.MouseButton1Click:Connect(function()
         ]], currentCFrame.X, currentCFrame.Y, currentCFrame.Z)
 
         textBox.Text = teleportScript
+    else
+        textBox.Text = "Character not found!"
+    end
+end)
+
+-- Generate the tween teleport script using the player's current CFrame
+tweenButton.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        local currentCFrame = character.HumanoidRootPart.CFrame
+        local tweenScript = string.format([[
+            -- Tween Teleportation Script
+            local TweenService = game:GetService("TweenService")
+            local player = game.Players.LocalPlayer
+            local destination = CFrame.new(%f, %f, %f)
+
+            local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+            local tween = TweenService:Create(player.Character.HumanoidRootPart, tweenInfo, {CFrame = destination})
+            tween:Play()
+            tween.Completed:Wait() -- Wait until the tween is completed
+        ]], currentCFrame.X, currentCFrame.Y, currentCFrame.Z)
+
+        textBox.Text = tweenScript
     else
         textBox.Text = "Character not found!"
     end
