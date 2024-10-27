@@ -1,0 +1,91 @@
+-- Create the Screen GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TeleportGUI"
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create the Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.3, 0, 0.4, 0)
+frame.Position = UDim2.new(0.35, 0, 0.3, 0)
+frame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+frame.Parent = screenGui
+
+-- Create the Text Label
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(1, 0, 0.2, 0)
+label.Position = UDim2.new(0, 0, 0, 0)
+label.BackgroundColor3 = Color3.new(1, 1, 1)
+label.Text = "Teleport Script Generator"
+label.TextColor3 = Color3.new(0, 0, 0)
+label.TextScaled = true
+label.Parent = frame
+
+-- Create the Text Box to display the script
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(1, 0, 0.5, 0)
+textBox.Position = UDim2.new(0, 0, 0.2, 0)
+textBox.BackgroundColor3 = Color3.new(1, 1, 1)
+textBox.Text = ""
+textBox.TextColor3 = Color3.new(0, 0, 0)
+textBox.TextScaled = false
+textBox.TextWrapped = true
+textBox.MultiLine = true
+textBox.Parent = frame
+
+-- Create the Generate Button
+local generateButton = Instance.new("TextButton")
+generateButton.Size = UDim2.new(1, 0, 0.1, 0)
+generateButton.Position = UDim2.new(0, 0, 0.72, 0)
+generateButton.BackgroundColor3 = Color3.new(0.2, 0.6, 0.2)
+generateButton.Text = "Generate TP Script"
+generateButton.TextColor3 = Color3.new(1, 1, 1)
+generateButton.TextScaled = true
+generateButton.Parent = frame
+
+-- Create the Copy Button
+local copyButton = Instance.new("TextButton")
+copyButton.Size = UDim2.new(1, 0, 0.1, 0)
+copyButton.Position = UDim2.new(0, 0, 0.83, 0)
+copyButton.BackgroundColor3 = Color3.new(0.2, 0.4, 0.8)
+copyButton.Text = "Copy to Clipboard"
+copyButton.TextColor3 = Color3.new(1, 1, 1)
+copyButton.TextScaled = true
+copyButton.Parent = frame
+
+-- Generate the teleport script using the player's current CFrame
+generateButton.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        local currentCFrame = character.HumanoidRootPart.CFrame
+        local teleportScript = string.format([[
+            -- Teleportation Script
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(%f, %f, %f)
+        ]], currentCFrame.X, currentCFrame.Y, currentCFrame.Z)
+
+        textBox.Text = teleportScript
+    else
+        textBox.Text = "Character not found!"
+    end
+end)
+
+-- Copy script to clipboard when the copy button is clicked
+copyButton.MouseButton1Click:Connect(function()
+    setclipboard(textBox.Text)
+    print("Teleport script copied to clipboard!")
+end)
+
+-- Optional: Close button to remove the GUI
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0.3, 0, 0.1, 0)
+closeButton.Position = UDim2.new(0.7, 0, 0.0, 0)
+closeButton.BackgroundColor3 = Color3.new(1, 0.2, 0.2)
+closeButton.Text = "Close"
+closeButton.TextColor3 = Color3.new(1, 1, 1)
+closeButton.TextScaled = true
+closeButton.Parent = frame
+
+-- Close the GUI when the close button is clicked
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
