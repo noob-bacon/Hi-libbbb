@@ -134,6 +134,42 @@ Name = <string> - The name of the button.
 Callback = <function> - The function of the button.
 ]]
 
+Tab:AddToggle({
+    Name = "This is a toggle!",
+    Default = false,  -- The toggle is off by default
+    Callback = function(Value)
+        print("Toggle state is now: " .. tostring(Value))
+
+        if Value then
+            -- Start the bandit function when toggle is ON
+            getgenv().bandit = true
+            while getgenv().bandit do
+                task.wait()
+                pcall(function()
+                    local npc = getNPC()
+                    if npc then
+                        teleportTo(npc.HumanoidRootPart.CFrame + Vector3.new(0, 30, 0))  -- Teleport player above the NPC
+                        game:GetService("VirtualUser"):ClickButton1(Vector2.new(9e9, 9e9))
+                    end
+                end)
+            end
+        else
+            -- Stop the bandit function when toggle is OFF
+            getgenv().bandit = false
+            if noclipE then
+                noclipE:Disconnect() -- Disconnect noclip if it's running
+            end
+            print("Toggle is OFF: Stopped bandit actions.")
+        end
+    end    
+})
+
+--[[
+Name = <string> - The name of the toggle.
+Default = <bool> - The default value of the toggle.
+Callback = <function> - The function that runs when the toggle state changes.
+]]
+
 game.Workspace.Zombies.DescendantAdded:Connect(function(z)
   local head = z:FindFirstChild("Head")
   if z:IsA("Model") and head and not broshead[z] then
