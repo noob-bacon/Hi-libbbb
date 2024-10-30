@@ -1,3 +1,16 @@
+local Players = game:GetService("Players")
+
+local function highlightPlayer(player)
+    -- Check if player has a character
+    if player.Character then
+        -- Create a Highlight instance and attach it to the player's character
+        local highlight = Instance.new("Highlight")
+        highlight.FillColor = Color3.new(1, 1, 0)  -- Yellow color
+        highlight.OutlineColor = Color3.new(0, 0, 0)  -- Black outline color
+        highlight.Parent = player.Character
+    end
+end
+
 warn("Anti afk running")
 game:GetService("Players").LocalPlayer.Idled:connect(function()
 warn("Anti afk ran")
@@ -14,9 +27,9 @@ getfenv().esp =(state and true or false)
 while getfenv().esp do
 task.wait()
 task.spawn(function()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/UESP'))()
-end)
-end
+for _, player in pairs(Players:GetPlayers()) do
+    highlightPlayer(player)
+    end
 end)
 
 example:AddToggle("Inf Bones/XP ", function(state)
@@ -46,4 +59,10 @@ example:AddButton("Bypass Gamepasses", function(state)
             v.GamepassId = nil
         end
         end
+end)
+
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+        highlightPlayer(player)
+    end)
 end)
