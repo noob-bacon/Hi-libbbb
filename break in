@@ -24,3 +24,24 @@ TextButton.MouseButton1Down:Connect(function()
 end)
 
 UICorner.Parent = TextButton
+
+local DarkraiX = loadstring(game:HttpGet("https://raw.githubusercontent.com/GamingScripter/Kavo-Ui/main/Darkrai%20Ui", true))()
+
+local Library = DarkraiX:Window("Bacon hub","break in","by sigma balls",Enum.KeyCode.F6);
+
+--[[
+DarkraiX:Window(
+1 = break in (string)
+2 = Game Name (You Can Keep This Empty To Get The Current Game Name!) (string)
+3 = A Logo If You Have One! (string)
+4 = Ui Library Toggle (I'll Not Prefer Touching It) (function)
+);
+]]
+
+Tab1 = Library:Tab("Main")
+
+--[[
+Library:Tab(
+1 = Items (string)
+)
+]]
