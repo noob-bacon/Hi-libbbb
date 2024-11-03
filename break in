@@ -3,12 +3,16 @@
 
 -- Instances:
 
+local ScreenGui = Instance.new("ScreenGui")
 local TextButton = Instance.new("TextButton")
 local UICorner = Instance.new("UICorner")
 
 --Properties:
 
-TextButton.Parent = game.StarterGui.ScreenGui
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+TextButton.Parent = ScreenGui
 TextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextButton.BorderSizePixel = 0
@@ -18,10 +22,12 @@ TextButton.Font = Enum.Font.SourceSans
 TextButton.Text = "Toggle"
 TextButton.TextColor3 = Color3.fromRGB(245, 245, 245)
 TextButton.TextSize = 30.000
-TextButton.Draggable = true
 TextButton.MouseButton1Down:Connect(function()
 	game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6" , false , game)
 end)
+
+
+UICorner.Parent = TextButton
 
 UICorner.Parent = TextButton
 
