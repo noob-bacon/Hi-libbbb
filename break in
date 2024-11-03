@@ -1,0 +1,26 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local TextButton = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+
+--Properties:
+
+TextButton.Parent = game.StarterGui.ScreenGui
+TextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.420318723, 0, 0, 0)
+TextButton.Size = UDim2.new(0.159362555, 0, 0.081699349, 0)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "Toggle"
+TextButton.TextColor3 = Color3.fromRGB(245, 245, 245)
+TextButton.TextSize = 30.000
+TextButton.Draggable = true
+TextButton.MouseButton1Down:Connect(function()
+	game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6" , false , game)
+end)
+
+UICorner.Parent = TextButton
