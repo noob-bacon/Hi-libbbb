@@ -1,3 +1,6 @@
+getgenv().Heal = false
+getgenv().CurrentVersion = "1";
+
 -- Gui to Lua
 -- Version: 3.2
 
@@ -13,39 +16,200 @@ ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 TextButton.Parent = ScreenGui
+TextButton.AnchorPoint = Vector2.new(0.5, 0)
 TextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BackgroundTransparency = 0.300
 TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextButton.BorderSizePixel = 0
-TextButton.Position = UDim2.new(0.0760956183, 0, 0.261437923, 0)
-TextButton.Size = UDim2.new(0.0796812773, 0, 0.163398698, 0)
+TextButton.Position = UDim2.new(0.5, 0, -0.104999997, 0)
+TextButton.Size = UDim2.new(0.104602508, 0, 0.0653594807, 0)
 TextButton.Font = Enum.Font.SourceSans
 TextButton.Text = "Toggle"
 TextButton.TextColor3 = Color3.fromRGB(245, 245, 245)
 TextButton.TextSize = 30.000
-TextButton.Draggable = true
 TextButton.MouseButton1Down:Connect(function()
-	game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6" , false , game)
+game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6" , false , game)
 end)
 
 UICorner.Parent = TextButton
 
-local DarkraiX = loadstring(game:HttpGet("https://raw.githubusercontent.com/GamingScripter/Kavo-Ui/main/Darkrai%20Ui", true))()
+local DarkraiX = loadstring(game:HttpGet("https://raw.githubusercontent.com/noob-bacon/miqqu/refs/heads/main/Darkrai%20improved%20to%20my%20liking", true))()
 
-local Library = DarkraiX:Window("Bacon hub","break in","by sigma balls",Enum.KeyCode.F6);
+local Library = DarkraiX:Window("Bacon hub","","",Enum.KeyCode.F6);
 
 --[[
 DarkraiX:Window(
-1 = break in (string)
+1 = Name Of Your Ui Library (string)
 2 = Game Name (You Can Keep This Empty To Get The Current Game Name!) (string)
 3 = A Logo If You Have One! (string)
 4 = Ui Library Toggle (I'll Not Prefer Touching It) (function)
 );
 ]]
 
-Tab1 = Library:Tab("Main")
+Tab1 = Library:Tab("Lobby/Roles")
 
---[[
-Library:Tab(
-1 = Items (string)
-)
-]]
+Tab1:Button("Police",function()
+        local A_1 = "Gun"
+        local A_2 = true
+        local Event = game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole
+        Event:FireServer(A_1, A_2)
+end)
+
+Tab1:Button("Swat",function()
+            local A_1 = "SwatGun"
+        local A_2 = true
+        local Event = game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole
+        Event:FireServer(A_1, A_2)
+end)
+
+Tab1 = Library:Tab("Items")
+
+Tab1:Button("Get Chips", function() 
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Chips")
+end)
+
+Tab1:Button("Get Cola", function()
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("BloxyCola")
+end)
+
+Tab1:Button("Get Apple", function() 
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Apple")
+end)
+
+Tab1:Button("Get Pizza", function()
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Pizza3")
+end)
+
+Tab1:Button("Get Cookie", function() 
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Cookie")
+end) 
+
+Tab1:Button("Get Medkit", function() 
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("MedKit")
+end)
+
+Tab1:Button("Get Cure", function()
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Cure")
+end)
+
+Tab1:Button("Get Bat", function() 
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Bat")
+end) 
+
+Tab1:Button("Get Teddy", function() 
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("TeddyBloxpin")
+end)
+
+Tab1:Button("Get Sword", function() 
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("LinkedSword")
+end)
+
+Tab1:Button("Get Lollipop", function()
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Lollipop")
+end)
+
+Tab1:Button("Get Key", function()
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Key")
+end)
+
+Tab1:Button("Get Hammer", function()
+    local A_1 = true
+    local A_2 = "Hammer"
+    local Event = game:GetService("ReplicatedStorage").RemoteEvents.BasementWeapon
+    Event:FireServer(A_1, A_2)
+end)
+
+Tab1:Button("Get Planks", function()
+    game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Plank")
+end)
+
+Tab1 = Library:Tab("Teleport")
+
+-- Basement Button
+Tab1:Button("Basement", function() 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(71, -15, -163)
+end)
+
+-- House Button
+Tab1:Button("House", function() 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-36, 3, -200)
+end)
+
+-- Hiding Spot Button
+Tab1:Button("Hiding Spot", function() 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-42.86656951904297, 6.433286666870117, -222.01171875)
+end)
+
+-- Attic Button
+Tab1:Button("Attic", function() 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16, 35, -220)
+end)
+
+-- Store Button
+Tab1:Button("Store", function() 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-422, 3, -121)
+end)
+
+-- Sewer Button
+Tab1:Button("Sewer", function() 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(129, 3, -125)
+end)
+
+-- Boss Room Button
+Tab1:Button("Boss Room", function() 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-39, -287, -1480)
+end)
+
+Tab1 = Library:Tab("Misc")
+
+-- Kill Enemies Button
+Tab1:Button("Kill Enemies", function()
+    for i,v in pairs(game.Workspace.BadGuys:GetChildren()) do
+        for i = 1, 50 do
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v, 10)
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v, 996)
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v, 9)
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v, 8)
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v, 996)
+        end
+    end
+end)
+
+-- Open Safe Button
+Tab1:Button("Open Safe", function()
+    game.ReplicatedStorage.RemoteEvents.Safe:FireServer(game:GetService("Workspace").CodeNote.SurfaceGui.TextLabel.Text)
+end)
+
+-- Be Friends with Cat Button
+Tab1:Button("Be Friends with Cat", function()
+    local Target = game:GetService("ReplicatedStorage").RemoteEvents.Cattery
+    Target:FireServer()
+end)
+
+-- Heal Instantly Button
+Tab1:Button("Heal Instantly", function()
+    for i = 1, 200 do
+        wait(0.005)
+        local A_1 = "Cat"
+        local Event = game:GetService("ReplicatedStorage").RemoteEvents.Energy
+        Event:FireServer(A_1)
+    end
+end)
+
+Tab1:Toggle("inf heal", false, function(value)
+getgenv().Heal = value
+if value then  -- Check if the toggle is enabled
+    while getgenv().Heal do  -- Run while Heal is true
+        wait(0.005)
+        local A_1 = "Cat"
+        local Event = game:GetService("ReplicatedStorage").RemoteEvents.Energy
+        Event:FireServer(A_1)
+    end
+end
+end)
+
+Tab1 = Library:Tab("W scripts")
+
+Tab1:Button("Chat bypass",function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/AWmigqJk", true))()
+end)
